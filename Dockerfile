@@ -48,3 +48,19 @@ LABEL application=todobackend
 
 # Install operating system dependencies
 RUN apk add --no-cache python3 mariadb-client bash
+
+# Create app user
+#
+# Set linux permissions for user and group.
+RUN addgroup -g 1000 app && \
+    adduser -u 1000 -G app -D app
+
+# Copy and install application source and pre-built dependencies.
+COPY --from=test --chown=app:app /build /build
+COPY --from=test --chown=app:app /app /app
+RUN pip3 install -r /build/requirements.txt -f /build --no-index --no-cache-dir
+RUN rm -rf /build
+
+# Set working directory and application user
+WORKDIR /app
+USER app
