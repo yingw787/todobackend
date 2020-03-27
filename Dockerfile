@@ -41,3 +41,10 @@ WORKDIR /app
 
 # Test entrypoint
 CMD ["python3", "manage.py", "test", "--noinput", "--settings=todobackend.settings_test"]
+
+# Release stage
+FROM alpine
+LABEL application=todobackend
+
+# Install operating system dependencies
+RUN apk add --no-cache python3 mariadb-client bash
