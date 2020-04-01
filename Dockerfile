@@ -31,10 +31,6 @@ WORKDIR /build
 RUN pip3 wheel -r requirements_test.txt --no-cache-dir --no-input
 RUN pip3 install -r requirements_test.txt -f /build --no-index --no-cache-dir
 
-# NOTE: Since `uwsgi` doesn't work with `conda`, I need to install `uwsgi`
-# manually.
-RUN pip3 install uwsgi==2.0.17
-
 # Copy source code
 COPY /src /app
 WORKDIR /app
