@@ -17,3 +17,10 @@ services:
             - --http=0.0.0.0:8000
             - --module=todobackend.wsgi
             - --master
+    db:
+        image: mysql:5.7
+        environment:
+            MYSQL_DATABASE: todobackend
+            MYSQL_USER: todo
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: password
