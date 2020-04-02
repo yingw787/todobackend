@@ -34,11 +34,11 @@ services:
         depends_on:
             db:
                 condition: service_healthy
-            command:
-                - python3
-                - manage.py
-                - migrate
-                - --no-input
+        command:
+            - python3
+            - manage.py
+            - migrate
+            - --no-input
     db:
         image: mysql:5.7
         healthcheck:
