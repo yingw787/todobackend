@@ -12,6 +12,14 @@ services:
             dockerfile: Dockerfile
         ports:
             - 8000:8000
+        depends_on:
+            db:
+                condition: service_healthy
+        environment:
+            DJANGO_SETTINGS_MODULE: todobackend.settings_release
+            MYSQL_HOST: db
+            MYSQL_USER: todo
+            MYSQL_PASSWORD: password
         command:
             - uwsgi
             - --http=0.0.0.0:8000
