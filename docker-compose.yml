@@ -28,7 +28,7 @@ services:
     db:
         image: mysql:5.7
         healthcheck:
-            test: mysqlshow -u $$MYSQL_USER -p $$MYSQL_PASSWORD
+            test: mysqlshow -u $$MYSQL_USER -p$$MYSQL_PASSWORD
             interval: 3s
             retries: 10
         environment:
