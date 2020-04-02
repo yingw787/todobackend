@@ -6,7 +6,7 @@ setup() {
 }
 
 @test "todobackend root" {
-    run curl -oI -s -w "${http_code}" $APP_URL
+    run curl -oI -s -w "%{http_code}" $APP_URL
     [ $status = 0 ]
     [ $output = 200 ]
 }
