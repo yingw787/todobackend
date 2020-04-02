@@ -57,6 +57,11 @@ COPY --from=test --chown=app:app /app /app
 RUN pip3 install -r /build/requirements.txt -f /build --no-index --no-cache-dir
 RUN rm -rf /build
 
+# Create public volume
+RUN mkdir /public
+RUN chown app:app /public
+VOLUME /public
+
 # Set working directory and application user
 WORKDIR /app
 USER app
