@@ -1,0 +1,19 @@
+version: '2.4'
+
+services:
+    test:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: test
+    release:
+        build:
+            context: .
+            dockerfile: Dockerfile
+ports:
+            - 8000:8000
+        command:
+            - uwsgi
+            - --http=0.0.0.0:8000
+            - --module=todobackend.wsgi
+            - --master
