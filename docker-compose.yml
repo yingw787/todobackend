@@ -39,6 +39,9 @@ services:
             - --module=todobackend.wsgi
             - --master
             - --check-static=/public
+            - --die-on-term
+            - --processes=4
+            - --threads=2
     acceptance:
         extends:
             service: release
