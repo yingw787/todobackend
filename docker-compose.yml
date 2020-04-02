@@ -10,21 +10,35 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        ports:
-            - 8000:8000
-        depends_on:
-            db:
-                condition: service_healthy
         environment:
             DJANGO_SETTINGS_MODULE: todobackend.settings_release
             MYSQL_HOST: db
             MYSQL_USER: todo
             MYSQL_PASSWORD: password
+    app:
+        extends:
+            service: release
+        depends_on:
+            db:
+                condition: service_healthy
+        ports:
+            - 8000:8000
         command:
             - uwsgi
             - --http=0.0.0.0:8000
             - --module=todobackend.wsgi
             - --master
+    migrate:
+        extends:
+            service: release
+        depends_on:
+            db:
+                condition: service_healthy
+            command:
+                - python3
+                - manage.py
+                - migrate
+                - --no-input
     db:
         image: mysql:5.7
         healthcheck:
