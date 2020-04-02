@@ -29,12 +29,27 @@ services:
             - 8000:8000
         volumes:
             - public:/public
+        healthcheck:
+            test: curl -fs localhost:8000
+            interval: 3s
+            retries: 10
         command:
             - uwsgi
             - --http=0.0.0.0:8000
             - --module=todobackend.wsgi
             - --master
             - --check-static=/public
+    acceptance:
+        extends:
+            service: release
+        depends_on:
+            app:
+                condition: service_healthy
+        environment:
+            APP_URL: http://app:8000
+        command:
+            - bats
+            - acceptance.bats
     migrate:
         extends:
             service: release
