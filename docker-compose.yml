@@ -25,14 +25,14 @@ services:
         depends_on:
             db:
                 condition: service_healthy
-        ports:
-            - 8000:8000
         volumes:
             - public:/public
         healthcheck:
             test: curl -fs localhost:8000
             interval: 3s
             retries: 10
+        ports:
+            - 8000:8000
         command:
             - uwsgi
             - --http=0.0.0.0:8000

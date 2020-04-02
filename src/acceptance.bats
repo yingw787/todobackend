@@ -17,6 +17,7 @@ setup() {
 }
 
 @test "create todo item" {
+    skip
     run curl -i -X POST -H "Content-Type: application/json" $url/todos -d "$item"
     [ $status = 0 ]
     [[ $output =~ "201 Created" ]] || false
