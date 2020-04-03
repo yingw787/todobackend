@@ -1,9 +1,15 @@
-.PHONY: test release clean version
+.PHONY: test release clean version login logout
 
 export APP_VERSION ?= $(shell git rev-parse --short HEAD)
 
 version:
 	@ echo '{"Version": "$(APP_VERSION)"}'
+
+login:
+	$$(aws ecr get-login --no-include-email)
+
+logout:
+	docker logout https://267131297086.dkr.ecr.us-east-1.amazonaws.com
 
 test:
 	# Use '--pull' in order to check newer releases of Docker images
