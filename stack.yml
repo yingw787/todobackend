@@ -18,7 +18,7 @@ Resources:
             Name: !Sub ${AWS::StackName}-station
             Description:
                 Fn::Sub: ${AWS::StackName} Station
-            AutomaticStopTimeMinutes: 15
+            AutomaticStopTimeMinutes: 20
             InstanceType: !Ref EC2InstanceType
             SubnetId:
                 Ref: SubnetId
